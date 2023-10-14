@@ -1,0 +1,51 @@
+.title-4xl{
+    @apply text-center text-4xl font-semibold
+}
+
+.title-2xl{
+    @apply text-center text-2xl font-semibold
+}
+
+.categories{
+    @apply grid grid-cols-2 md:grid-cols-4 gap-10 mt-10 px-4
+}
+
+.categories li{
+    @apply hover:shadow-lg rounded-2xl border border-slate-300 bg-white overflow-hidden cursor-pointer hover:scale-105 duration-300
+}
+
+.categories li h1{
+    @apply p-4 text-center font-semibold text-slate-700
+}
+
+.levels {
+    @apply max-w-3xl mx-auto grid grid-cols-3 gap-4 mt-10 px-4
+}
+
+.levels li {
+   @apply text-lg font-semibold bg-indigo-600 text-white text-center py-3 rounded cursor-pointer border hover:scale-105 duration-300
+}
+
+.modal {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center
+}
+
+.modal .card-modal {
+    @apply bg-white p-10 rounded max-w-lg w-full flex flex-col items-center justify-center text-slate-700
+}
+
+.title-xl {
+    @apply font-bold text-xl text-center
+}
+
+.buttons{
+    @apply flex space-x-4 mt-6
+}
+
+.button {
+    @apply bg-indigo-600 text-white px-6 py-2 font-semibold rounded-lg hover:bg-indigo-800 hover:scale-105 duration-300
+}
+
+.buttons button{
+    @apply button
+}
