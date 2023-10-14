@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ahorcado</title>
+
+    
+    
+
+  <script type="module" crossorigin src="/assets/index-af471fd8.js"></script>
+  <link rel="stylesheet" href="/assets/index-e9d1a202.css">
+</head>
+
+<body class="bg-gradient-to-r from-indigo-600 to-indigo-900 text-white pb-10">
+
+    <div x-data="game" class="max-w-6xl mx-auto pt-10">
+
+        <h1 class="title-4xl">AHORCADO</h1>
+
+        <!-- CATEGORIAS -->
+        <div x-show="!category" class="mt-5">
+            <h1 class="title-2xl">Selecciona una categoría</h1>
+            <ul class="categories">
+                <template x-for="item in listCategories">
+                    <li x-on:click="selectCategory(item.value)">
+                        <img :src="item.image">
+                        <h1 x-text="item.name"></h1>
+                    </li>
+                </template>
+            </ul>
+        </div>
+
+        <!-- NIVELES -->
+        <div x-show="category && !level" class="mt-5">
+            <h1 class="title-2xl">Selecciona un nivel</h1>
+            <ul class="levels">
+                <li x-on:click="selectLevel('easy')">Fácil</li>
+                <li x-on:click="selectLevel('medium')">Medio</li>
+                <li x-on:click="selectLevel('hard')">Difícil</li>
+            </ul>
+        </div>
+
+        <!-- JUEGO -->
+        <div x-show="category && level" class="mt-5 px-4">
+
+            <div class="bg-indigo-600 text-white rounded-lg px-6 py-1 flex justify-between mb-5 border">
+                <span x-text="'Nivel: ' + {easy: 'Fácil', medium: 'Medio', hard: 'Difícil'}[level] "></span>
+                <span x-text="'Categoría: ' + {animals: 'Animales', countries: 'Países', fruits: 'Frutas', colors: 'Colores'}[category] "></span>
+                <span x-text="'Intentos: ' + intentsFails "></span>
+            </div>
+
+            <h1 x-text="" class="title-2xl"></h1>
+
+            <div class="flex flex-col items-center justify-center">
+                <img :src="imgLevels[Math.ceil( (6 / intents ) *  intentsFails)]" class="w-40 object-cover object-center">
+                <div class="space-x-1 mt-3">
+                    <template x-for="letter in word.split('')">
+                        <span x-text="letterExists(letter)" class="text-3xl"></span>
+                    </template>
+                </div>
+            </div>
+
+
+            <ul class="grid grid-cols-8 gap-2 mt-5">
+                <template x-for="letter in abc">
+                    <li x-text="letter" class="border rounded text-center py-2"
+                        :class="letterIsSelected(letter) ? 'bg-slate-300 text-slate-700' : 'cursor-pointer hover:bg-white hover:text-indigo-600' "
+                        x-on:click="selectLetter(letter)">
+                    </li>
+                </template>
+                <li x-on:click="reset()" class="col-span-3 border rounded text-center py-2 cursor-pointer hover:bg-white hover:text-indigo-600">
+                    &#129136; Volver al inicio 
+                </li>
+                <li x-on:click="reload()" class="col-span-3 border rounded text-center py-2 cursor-pointer hover:bg-white hover:text-indigo-600">
+                    &#11118; Reiniciar 
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- GANADOR -->
+        <div x-show="started && winner" class="modal">
+            <div class="card-modal">
+                <h1 class="title-xl">¡Ganaste!</h1>
+                <span class="text-yellow-400 text-3xl">&#9733; &#9733; &#9733; &#9733; &#9733;</span>
+                <div class="buttons">
+                    <button x-on:click="reset()">&#129136; Volver al inicio</button>
+                    <button x-on:click="reload()">&#11118; Jugar de nuevo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN DEL JUEGO -->
+        <div x-show="started && intentsFails == 0" class="modal">
+            <div class="card-modal">
+                <span class="text-yellow-400 text-3xl mb-3">&#128128;</span>
+                <h1 class="title-xl">¡PERDISTE! </h1>
+                <span x-text="'La palabra era: ' + word" class="mt-3"></span>
+                <div class="buttons">
+                    <button x-on:click="reset()">&#129136; Volver al inicio</button>
+                    <button x-on:click="reload()">&#11118; Jugar de nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
