@@ -1,3 +1,5 @@
+[x-cloak] { display: none !important; }
+
 .title-4xl{
     @apply text-center text-4xl font-semibold
 }
@@ -32,6 +34,10 @@
 
 .modal .card-modal {
     @apply bg-white p-10 rounded max-w-lg w-full flex flex-col items-center justify-center text-slate-700
+}
+
+.load {
+    @apply fixed bg-gradient-to-r from-indigo-600 to-indigo-900 inset-0 bg-opacity-50 flex items-center justify-center
 }
 
 .title-xl {

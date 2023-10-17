@@ -28,7 +28,7 @@ export default () => ({
             value: 'colors',
         },
     ],
-    imgLevels: {0: 'images/6.jpg', 1: 'images/5.jpg', 2: 'images/4.jpg', 3: 'images/3.jpg', 4: 'images/2.jpg', 5: 'images/1.jpg',  6: 'images/0.jpg'},
+    imgLevels: {0: 'images/6.png', 1: 'images/5.png', 2: 'images/4.png', 3: 'images/3.png', 4: 'images/2.png', 5: 'images/1.png',  6: 'images/0.png'},
     abc: 'abcdefghijklmnopqrstuvwxyz'.split(''),
     category: null,
     level: null,
@@ -37,9 +37,22 @@ export default () => ({
     lettersSelecteds: [],
     started:false,
     winner: false,
+    load: true,
+
+    init(){
+        document.addEventListener('alpine:initialized', () => {
+            this.showLoad()
+        })
+    },
+
+    showLoad(){
+        this.load=true
+        setTimeout(() => { this.load = false }, 1000);
+    },
 
     selectCategory(category){
         this.category = category
+        this.showLoad()
     },
 
     selectLevel(level){
@@ -53,6 +66,7 @@ export default () => ({
         let words = Math.floor(Math.random() * category.length)
         this.word = category[words]
         this.started = true
+        this.showLoad()
     },
 
     letterIsSelected(letter){
@@ -87,6 +101,7 @@ export default () => ({
         this.word = ''
         this.lettersSelecteds = []
         this.started  = false
+        this.showLoad()
     },
 
     reload(){
